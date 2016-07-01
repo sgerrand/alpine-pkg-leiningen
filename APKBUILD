@@ -34,6 +34,7 @@ package() {
 	cd "$_builddir"
 	install -Dm755 "$srcdir"/$pkgname-$pkgver-standalone.jar "$pkgdir"/usr/share/java/$pkgname-$pkgver-standalone.jar
 	install -Dm755 bin/lein-pkg "$pkgdir"/usr/bin/lein
+	mkdir -p "$pkgdir"/usr/share/doc/$pkgname
 	install -Dm644 *.md "$pkgdir"/usr/share/doc/$pkgname
 	install -Dm644 doc/*.md "$pkgdir"/usr/share/doc/$pkgname
 	install -Dm644 COPYING "$pkgdir"/usr/share/licenses/$pkgname/COPYING
