@@ -2,12 +2,12 @@
 # Maintainer: Sasha Gerrand <alpine-pkgs@sgerrand.com>
 pkgname=leiningen
 pkgver=2.6.1
-pkgrel=0
+pkgrel=1
 pkgdesc="Automate Clojure projects without setting your hair on fire."
 url="https://leiningen.org"
 arch="noarch"
 license="Eclipse Public License"
-depends="openjdk8-jre-base"
+depends="bash openjdk8-jre-base"
 depends_dev=""
 makedepends="$depends_dev openjdk8"
 install=""
