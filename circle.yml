@@ -18,6 +18,9 @@ dependencies:
 test:
   override:
     - docker run -it -v $(pwd)/packages:/packages alpine:3.3 sh -c "cp /packages/sgerrand.rsa.pub /etc/apk/keys/ && apk add --no-progress --update-cache --upgrade /packages/builder/x86_64/*.apk"
+    - docker run -it -v $(pwd)/packages:/packages alpine:3.4 sh -c "cp /packages/sgerrand.rsa.pub /etc/apk/keys/ && apk add --no-progress --update-cache --upgrade /packages/builder/x86_64/*.apk"
+    - docker run -it -v $(pwd)/packages:/packages alpine:3.5 sh -c "cp /packages/sgerrand.rsa.pub /etc/apk/keys/ && apk add --no-progress --update-cache --upgrade /packages/builder/x86_64/*.apk"
+    - docker run -it -v $(pwd)/packages:/packages alpine:3.6 sh -c "cp /packages/sgerrand.rsa.pub /etc/apk/keys/ && apk add --no-progress --update-cache --upgrade /packages/builder/x86_64/*.apk"
 
 deployment:
   release:
