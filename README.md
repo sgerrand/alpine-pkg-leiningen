@@ -15,8 +15,8 @@ The current installation method for these packages is to pull them in using
 
     apk --no-cache add ca-certificates
     wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://raw.githubusercontent.com/sgerrand/alpine-pkg-leiningen/master/sgerrand.rsa.pub
-    wget https://github.com/sgerrand/alpine-pkg-leiningen/releases/download/2.8.0-r0/leiningen-2.8.0-r0.apk
-    apk add leiningen-2.8.0-r0.apk
+    wget https://github.com/sgerrand/alpine-pkg-leiningen/releases/download/2.8.1-r0/leiningen-2.8.1-r0.apk
+    apk add leiningen-2.8.1-r0.apk
 
 [leiningen]: https://leiningen.org
 [releases]: https://github.com/sgerrand/alpine-pkg-leiningen/releases/
