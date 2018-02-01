@@ -9,26 +9,28 @@ jobs:
       - run:
           name: Create Docker volumes
           command: |
-            docker create --name input --volume /home/builder/package alpine:3.6 /bin/true
-            docker create --name output --volume /packages alpine:3.6 /bin/true
+            docker create --name input --volume /home/builder/package alpine /bin/true
+            docker create --name output --volume /packages alpine /bin/true
             docker cp ./APKBUILD input:/home/builder/package
       - run:
           name: Build packages
           command: |
-            docker run --volumes-from input --volumes-from output sgerrand/alpine-abuild
+            docker run --env RSA_PRIVATE_KEY="$RSA_PRIVATE_KEY" --env RSA_PRIVATE_KEY_NAME="sgerrand.rsa" \
+                       --volumes-from input --volumes-from output sgerrand/alpine-abuild
       - run:
           name: Extract packages
           command: |
             mkdir -p packages
             docker cp output:/packages/builder packages/
-      - run: docker run --interactive --tty --volumes-from output alpine:3.3 sh -c "cp /packages/sgerrand.rsa.pub /etc/apk/keys/ && apk add --no-progress --update-cache --upgrade /packages/builder/x86_64/*.apk"
-      - run: docker run --interactive --tty --volumes-from output alpine:3.4 sh -c "cp /packages/sgerrand.rsa.pub /etc/apk/keys/ && apk add --no-progress --update-cache --upgrade /packages/builder/x86_64/*.apk"
-      - run: docker run --interactive --tty --volumes-from output alpine:3.5 sh -c "cp /packages/sgerrand.rsa.pub /etc/apk/keys/ && apk add --no-progress --update-cache --upgrade /packages/builder/x86_64/*.apk"
-      - run: docker run --interactive --tty --volumes-from output alpine:3.6 sh -c "cp /packages/sgerrand.rsa.pub /etc/apk/keys/ && apk add --no-progress --update-cache --upgrade /packages/builder/x86_64/*.apk"
-      - persist_to_workspace:
-          root: packages
-          paths:
-            - **/*
+      - run:
+          name: Test installing packages
+          command: |
+            cp sgerrand.rsa.pub /etc/apk/keys/sgerrand.rsa.pub
+            apk add --no-progress --update-cache --upgrade ./packages/builder/x86_64/leiningen-*.apk
+      - run:
+          name: Test executable
+          command: |
+             lein version | grep -q 'Leiningen 2.8.1'
       - run:
           name: Remove Docker volumes
           command: |
@@ -38,59 +40,60 @@ jobs:
       - store_artifacts:
           destination: pkgs
           path: packages
+      - persist_to_workspace:
+          root: .
+          paths:
+            - packages
     working_directory: ~/alpine-pkg-leiningen
-  deploy-tagged-release:
+  release-master:
     docker:
-      - image: golang:latest
+      - image: golang:alpine
     steps:
-      - run: go get github.com/tcnksm/ghr
       - attach_workspace:
-          at: packages
+          at: .
+      - run: apk add --no-cache --no-progress git
+      - run: go get github.com/tcnksm/ghr
       - run:
-          name: Upload tagged release to GitHub
+          name: Release packages
           command: |
-            ghr -u sgerrand $CIRCLE_TAG packages/
-            ghr -u sgerrand $CIRCLE_TAG packages/builder/x86_64
+            ghr -u sgerrand -r $CIRCLE_PROJECT_REPONAME -prerelease -delete unreleased packages
+            ghr -u sgerrand -r $CIRCLE_PROJECT_REPONAME -prerelease unreleased packages/builder/x86_64
     working_directory: ~/alpine-pkg-leiningen
-  deploy-prerelease:
+  release-tag:
     docker:
-      - image: golang:latest
+      - image: golang:alpine
     steps:
-      - run: go get github.com/tcnksm/ghr
       - attach_workspace:
-          at: packages
+          at: .
+      - run: apk add --no-cache --no-progress git
+      - run: go get github.com/tcnksm/ghr
       - run:
-          name: Upload tagged release to GitHub
+          name: Release packages
           command: |
-            ghr -u sgerrand --prerelease --delete unreleased packages
-            ghr -u sgerrand --prerelease unreleased packages/builder/x86_64
+            ghr -u sgerrand -r $CIRCLE_PROJECT_REPONAME $CIRCLE_TAG packages
+            ghr -u sgerrand -r $CIRCLE_PROJECT_REPONAME $CIRCLE_TAG packages/builder/x86_64
     working_directory: ~/alpine-pkg-leiningen
 workflows:
   version: 2
-  build-then-release:
+  build-test-release:
     jobs:
-      - build
-      - deploy-prerelease:
-          requires:
-            - build
-          filters:
-            branches:
-              only:
-                - master
-      - deploy-prerelease:
-          requires:
-            - build
+      - build:
           filters:
             tags:
-              ignore: /.*/
-            branches:
-              only:
-                - master
-      - deploy-tagged-release:
+              only: /.*/
+      - release-master:
           requires:
             - build
           filters:
+            branches:
+              only: master
+            tags:
+              ignore: /.*/
+      - release-tag:
+          requires:
+            - build
+          filters:
+            branches:
+              ignore: /.*/
             tags:
               only: /^[0-9]+(\.[0-9]+){1,2}(\-r\d+)?$/
-            branches:
-              ignore: /.*/
