@@ -25,7 +25,7 @@ jobs:
       - run:
           name: Test installing packages
           command: |
-            cp sgerrand.rsa.pub /etc/apk/keys/sgerrand.rsa.pub
+            wget -P /etc/apk/keys/ https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub
             apk add --no-progress --update-cache --upgrade ./packages/builder/x86_64/leiningen-*.apk
       - run:
           name: Test executable
