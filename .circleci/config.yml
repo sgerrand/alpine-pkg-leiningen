@@ -30,7 +30,7 @@ jobs:
       - run:
           name: Test executable
           command: |
-             lein version | grep -q 'Leiningen 2.8.1'
+             lein version | grep -q 'Leiningen 2.8.2'
       - run:
           name: Remove Docker volumes
           command: |
