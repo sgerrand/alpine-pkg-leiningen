@@ -1,7 +1,7 @@
 # Contributor: Sasha Gerrand <alpine-pkgs@sgerrand.com>
 # Maintainer: Sasha Gerrand <alpine-pkgs@sgerrand.com>
 pkgname=leiningen
-pkgver=2.8.3
+pkgver=2.9.0
 pkgrel=0
 pkgdesc="Automate Clojure projects without setting your hair on fire."
 url="https://leiningen.org"
@@ -40,5 +40,5 @@ package() {
 	install -Dm644 COPYING "$pkgdir"/usr/share/licenses/$pkgname/COPYING
 }
 
-sha512sums="77884bb3613316bc0bd9e47a16ac862b4ca102a7031a42f895966e2bb4cf660fec4aa0bc7cf2999cc105d67ca03cef4cac259c31e277c937feebf69acc6de875  leiningen-2.8.3.tar.gz
-f9ed3604dbf0498524b3a137a872576de7cb5b8df6d4841cf6d552adc0b8cf2186244805cd53228d57c4285803069ed8a67a8dd33a326369cb468dcc773444f7  leiningen-2.8.3-standalone.jar"
+sha512sums="64399bb38cf5989a60e1ffb3793ca96a1f0e66e8a48a5729987770bf1cf91e6bcac6e008706e575c2ba1dd520476f2d95316b57f96f0d73a4edc6fe6912aa52c  leiningen-2.9.0.tar.gz
+cf314e4ff5a2ca7f812720e6390e818a4587f1df8aadcc124ea42cec6e66ad0118afeceedead1dfc619782946749e82a3070f930f2dedd95d753bad6b45b2271  leiningen-2.9.0-standalone.jar"
