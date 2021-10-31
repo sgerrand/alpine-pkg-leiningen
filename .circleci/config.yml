@@ -29,7 +29,7 @@ jobs:
             apk add --no-progress --update-cache --upgrade ./packages/builder/x86_64/leiningen-*.apk
       - run:
           name: Test executable
-          command: lein version | grep -q 'Leiningen 2.9.6'
+          command: lein version | grep -q 'Leiningen 2.9.7'
       - run:
           name: Remove Docker volumes
           command: |
