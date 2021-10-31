@@ -1,13 +1,13 @@
 # Contributor: Sasha Gerrand <alpine-pkgs@sgerrand.com>
 # Maintainer: Sasha Gerrand <alpine-pkgs@sgerrand.com>
 pkgname=leiningen
-pkgver=2.9.3
+pkgver=2.9.4
 pkgrel=0
 pkgdesc="Automate Clojure projects without setting your hair on fire."
 url="https://leiningen.org"
 arch="noarch"
 license="Eclipse Public License"
-depends="bash openjdk8-jre-base"
+depends="bash openjdk11-jre-headless"
 depends_dev=""
 makedepends="$depends_dev openjdk8"
 install=""
@@ -40,5 +40,5 @@ package() {
 	install -Dm644 COPYING "$pkgdir"/usr/share/licenses/$pkgname/COPYING
 }
 
-sha512sums="d37ffe9f2ec8477b481e913a032f7bb307292a96ead213acee8c45585eb3988be6fa58cb45c745c9eeb30f78ea8b27afc1ce2ae2df4998c205e76dc9dd9068a6  leiningen-2.9.3.tar.gz
-2f716e37e68ae994f998027cd2d8c8705e4fdafb513edc91a8acdd833d3f388882f5f33446b56e0c5ce4c196d9337ce46e174f73231ec8b648fe630e366bf9bf  leiningen-2.9.3-standalone.jar"
+sha512sums="980bb74b29774b8595d8a1fc2aee61dd674a12b853d3cad751bf54700cab0109c2c87ffceb303c0b656fe89bc569021fcf11740175aa29d839ccbc9014a32fd3  leiningen-2.9.4.tar.gz
++d6cb1a26a24b183a1a805ed6c79b3e42fd689396574b802448dbca26869f8530ff7ef414212c198450a540e699ac072e73330395c5035d62db8e2e0e777d45c3  leiningen-2.9.4-standalone.jar"
