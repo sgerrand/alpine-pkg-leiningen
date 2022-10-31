@@ -65,7 +65,7 @@ jobs:
       - attach_workspace:
           at: .
       - run: apk add --no-cache --no-progress git
-      - run: go get github.com/tcnksm/ghr
+      - run: go install github.com/tcnksm/ghr@latest
       - run:
           name: Release packages
           command: |
