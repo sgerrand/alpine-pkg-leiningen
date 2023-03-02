@@ -13,7 +13,8 @@ See the [releases page][releases] for the latest download links.
 The current installation method for this package is to install it with `apk`:
 
     wget -P /etc/apk/keys/ https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub
-    apk add --no-cache --repository=https://apkproxy.herokuapp.com/sgerrand/alpine-pkg-leiningen leiningen=2.9.8-r0
+    wget https://github.com/sgerrand/alpine-pkg-leiningen/releases/download/2.9.8-r0/leiningen-2.9.8-r0.apk
+    apk leiningen=2.9.8-r0.apk
 
 [leiningen]: https://leiningen.org
 [releases]: https://github.com/sgerrand/alpine-pkg-leiningen/releases/
