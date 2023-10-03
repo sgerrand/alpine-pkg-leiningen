@@ -12,7 +12,7 @@ jobs:
             docker create --name input --volume /home/builder/package alpine /bin/true
             docker create --name output --volume /packages alpine /bin/true
             wget -P /etc/apk/keys/ https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub
-            docker cp ./sgerrand.rsa.pub input:/etc/apk/keys/
+            docker cp ./sgerrand.rsa.pub input:/home/builder/.abuild/
             docker cp ./APKBUILD input:/home/builder/package
       - run:
           name: Build packages
