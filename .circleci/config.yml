@@ -23,6 +23,7 @@ jobs:
           name: Build packages
           command: |
             docker run --env RSA_PRIVATE_KEY="$RSA_PRIVATE_KEY" --env RSA_PRIVATE_KEY_NAME="sgerrand.rsa" \
+                       --env PACKAGER_PUBKEY="/etc/apk/keys/sgerrand.rsa.pub" \
                        --volumes-from input --volumes-from output sgerrand/alpine-abuild
       - run:
           name: Extract packages
