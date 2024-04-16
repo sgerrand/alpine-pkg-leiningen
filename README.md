@@ -1,20 +1,12 @@
 # alpine-pkg-leiningen
 
-[![CircleCI](https://circleci.com/gh/sgerrand/alpine-pkg-leiningen.svg?style=svg)](https://circleci.com/gh/sgerrand/alpine-pkg-leiningen)
+:warning: **Deprecated** :warning:
 
-This is [Leiningen][leiningen] as an Alpine Linux package.
+[As of
+2021-10-19](https://github.com/alpinelinux/aports/commit/17ee7241780add7b051acd7daa98801cef68a484),
+the `leiningen` package can and should be downloaded and installed from Alpine
+Linux's community repository.
 
-## Releases
+--
 
-See the [releases page][releases] for the latest download links.
-
-## Installing
-
-The current installation method for this package is to install it with `apk`:
-
-    wget -P /etc/apk/keys/ https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub
-    wget https://github.com/sgerrand/alpine-pkg-leiningen/releases/download/2.9.8-r0/leiningen-2.9.8-r0.apk
-    apk leiningen=2.9.8-r0.apk
-
-[leiningen]: https://leiningen.org
-[releases]: https://github.com/sgerrand/alpine-pkg-leiningen/releases/
+This was [Leiningen][leiningen] as an Alpine Linux package.
