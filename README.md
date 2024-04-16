@@ -7,6 +7,6 @@
 the `leiningen` package can and should be downloaded and installed from Alpine
 Linux's community repository.
 
---
+---
 
-This was [Leiningen][leiningen] as an Alpine Linux package.
+This was [Leiningen][https://leiningen.org] as an Alpine Linux package.
