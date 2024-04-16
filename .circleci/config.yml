@@ -7,15 +7,23 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
-          name: Create Docker volumes
+          name: Create Docker container for volume mounting
           command: |
-            docker create --name input --volume /home/builder/package alpine /bin/true
+            docker create --name input --volume /etc/apk/keys --volume /home/builder/package alpine /bin/true
             docker create --name output --volume /packages alpine /bin/true
-            docker cp ./APKBUILD input:/home/builder/package
+      - run:
+          name: Download public signing key
+          command: wget -P /tmp https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub
+      - run:
+          name: Copy build files into container
+          command: |
+            docker cp /tmp/sgerrand.rsa.pub input:/etc/apk/keys/sgerrand.rsa.pub
+            docker cp ./APKBUILD input:/home/builder/package/APKBUILD
       - run:
           name: Build packages
           command: |
             docker run --env RSA_PRIVATE_KEY="$RSA_PRIVATE_KEY" --env RSA_PRIVATE_KEY_NAME="sgerrand.rsa" \
+                       --env PACKAGER_PUBKEY="/etc/apk/keys/sgerrand.rsa.pub" \
                        --volumes-from input --volumes-from output sgerrand/alpine-abuild
       - run:
           name: Extract packages
