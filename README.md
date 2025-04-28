@@ -9,4 +9,4 @@ Linux's community repository.
 
 ---
 
-This was [Leiningen][https://leiningen.org] as an Alpine Linux package.
+This was [Leiningen](https://leiningen.org) as an Alpine Linux package.
